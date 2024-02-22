@@ -7,7 +7,6 @@ from pygame.locals import QUIT
 import random
 import math
 
-# Global Settings
 WIDTH, HEIGHT = 768, 432
 BACKGROUND = (0, 0, 0)
 ROTATION_SPEED = 1.8
@@ -75,6 +74,9 @@ TM3 = pygame.mask.from_surface(T3)
 TM4 = pygame.mask.from_surface(T4)
 TM5 = pygame.mask.from_surface(T5)
 TM6 = pygame.mask.from_surface(T6)
+cargo_mask = pygame.mask.from_surface(cargo)
+
+
 crotation = 0
 rotation_angle = 0
 y_pos = 313.8
@@ -95,7 +97,7 @@ def find_slope(angle):
 
 
 def cargo_drop():
-  global cvelocity_x, cvelocity_y, crotation
+  global cvelocity_x, cvelocity_y, crotation, cargo_mask
   screen.blit(cargo, (x_pos + 200, y_pos))
   cargo_mask = pygame.mask.from_surface(cargo)
   cvelocity_x = SPEED * math.cos(math.radians(crotation))
@@ -180,21 +182,16 @@ while game_loop:
       velocity_y -= 0.5
 
 
-  if keys[pygame.K_UP] or keys[pygame.K_w]:
+  if keys[pygame.K_UP] or keys[pygame.K_w ]:
     current_sprite = sprite2 if current_sprite == sprite1 else sprite1
   else:
     current_sprite = sprite3
     
     
   if keys[pygame.K_SPACE]:
-    CDS = True
-    
+      CDS = True    
   if CDS == True:
     cargo_drop()
-
-  if CDS == True:
-    if keys[pygame.K_SPACE]:
-      CDS = False
 
   
   if keys[pygame.K_LEFT] or keys[pygame.K_a]:
@@ -241,6 +238,9 @@ while game_loop:
     velocity_y = -0.075
     velocity_x = 0
     rotation_speed = 0
+    # y_pos = y_pos - 70
+    # rotation_angle = 0
+    # score = score - 10
   else:
     velocity_y += 0.15
 
@@ -248,6 +248,10 @@ while game_loop:
     velocity_y = -0.075
     velocity_x = 0
     rotation_speed = 0
+    # if x_pos > 100 or x_pos < 10:
+    #   y_pos = y_pos - 70
+    # # rotation_angle = 0
+    #   score = score - 10
 
   y_pos += velocity_y
   x_pos += velocity_x
