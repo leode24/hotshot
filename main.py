@@ -32,33 +32,33 @@ current_sprite = sprite3
 # Load Terrain
 T1, T2, T3, T4, T5, T6 = [pygame.image.load(f"T{i}.png").convert_alpha() for i in range(1, 7)]
 
-# T1 Targets
+# Terrain 1 Targets
 T1_10 = pygame.image.load("10T1.png").convert_alpha()
 T1_15 = pygame.image.load("15T1.png").convert_alpha()
 T1_20 = pygame.image.load("20T1.png").convert_alpha()
 
-# T2 Targets
+# Terrain 2 Targets
 T2_10 = pygame.image.load("10T2.png").convert_alpha()
 T2_15 = pygame.image.load("15T2.png").convert_alpha()
 T2_20 = pygame.image.load("20T2.png").convert_alpha()
 T2_30 = pygame.image.load("30T2.png").convert_alpha()
 
-# T3 Targets
+# Terrain 3 Targets
 T3_10 = pygame.image.load("10T3.png").convert_alpha()
 T3_15 = pygame.image.load("15T3.png").convert_alpha()
 T3_20 = pygame.image.load("20T3.png").convert_alpha()
 T3_30 = pygame.image.load("30T3.png").convert_alpha()
 
-# T4 Targets
+# Terrain 4 Targets
 T4_10 = pygame.image.load("10T4.png").convert_alpha()
 T4_15 = pygame.image.load("15T4.png").convert_alpha()
 
-# T5 Targets
+# Terrain 5 Targets
 T5_10 = pygame.image.load("10T5.png").convert_alpha()
 T5_15 = pygame.image.load("15T5.png").convert_alpha()
 T5_20 = pygame.image.load("20T5.png").convert_alpha()
 
-# T6 Targets
+# Terrain 6 Targets
 T6_10 = pygame.image.load("10T6.png").convert_alpha()
 T6_15 = pygame.image.load("15T6.png").convert_alpha()
 T6_20 = pygame.image.load("20T6.png").convert_alpha()
