@@ -7,7 +7,7 @@ from pygame.locals import QUIT
 import random
 import math
 
-# Define Game Variables
+# Define the Game Variables
 WIDTH, HEIGHT = 768, 432
 BACKGROUND = (0, 0, 0)
 ROTATION_SPEED = 2
