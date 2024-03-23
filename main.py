@@ -32,33 +32,33 @@ current_sprite = sprite3
 # Load Terrain
 T1, T2, T3, T4, T5, T6 = [pygame.image.load(f"T{i}.png").convert_alpha() for i in range(1, 7)]
 
-# T1 Targets
+# Terrain 1 Targets
 T1_10 = pygame.image.load("10T1.png").convert_alpha()
 T1_15 = pygame.image.load("15T1.png").convert_alpha()
 T1_20 = pygame.image.load("20T1.png").convert_alpha()
 
-# T2 Targets
+# Terrain 2 Targets
 T2_10 = pygame.image.load("10T2.png").convert_alpha()
 T2_15 = pygame.image.load("15T2.png").convert_alpha()
 T2_20 = pygame.image.load("20T2.png").convert_alpha()
 T2_30 = pygame.image.load("30T2.png").convert_alpha()
 
-# T3 Targets
+# Terrain 3 Targets
 T3_10 = pygame.image.load("10T3.png").convert_alpha()
 T3_15 = pygame.image.load("15T3.png").convert_alpha()
 T3_20 = pygame.image.load("20T3.png").convert_alpha()
 T3_30 = pygame.image.load("30T3.png").convert_alpha()
 
-# T4 Targets
+# Terrain 4 Targets
 T4_10 = pygame.image.load("10T4.png").convert_alpha()
 T4_15 = pygame.image.load("15T4.png").convert_alpha()
 
-# T5 Targets
+# Terrain 5 Targets
 T5_10 = pygame.image.load("10T5.png").convert_alpha()
 T5_15 = pygame.image.load("15T5.png").convert_alpha()
 T5_20 = pygame.image.load("20T5.png").convert_alpha()
 
-# T6 Targets
+# Terrain 6 Targets
 T6_10 = pygame.image.load("10T6.png").convert_alpha()
 T6_15 = pygame.image.load("15T6.png").convert_alpha()
 T6_20 = pygame.image.load("20T6.png").convert_alpha()
@@ -163,9 +163,9 @@ while game_loop:
     slope = -2
 
   rotation_angle = rotation_angle % 360
-  
+
   keys = pygame.key.get_pressed()
-  
+
   if keys[pygame.K_UP] or keys[pygame.K_w]:
     # RS.play()
     if rotation_angle == 90:
@@ -186,38 +186,42 @@ while game_loop:
     current_sprite = sprite2 if current_sprite == sprite1 else sprite1
   else:
     current_sprite = sprite3
-    
-    
+
+
   if keys[pygame.K_SPACE]:
       CDS = True    
   if CDS == True:
     cargo_drop()
 
-  
+
   if keys[pygame.K_LEFT] or keys[pygame.K_a]:
     rotation_angle += ROTATION_SPEED
     ROTATION_SPEED += 0.1
-    
+
   elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
     rotation_angle -= ROTATION_SPEED
     ROTATION_SPEED += 0.1
-    
+
   else:
     ROTATION_SPEED = 1.8
-    
+
 
   if keys[pygame.K_RETURN] or keys[pygame.K_RSHIFT]:
     velocity_y = -0.225
     velocity_x = 0
     rotation_angle = 0
 
-  
+  if keys[pygame.K_m]:
+    rotation_angle = 180
+    velocity_x = 0
+
+
   if keys[pygame.K_ESCAPE] or keys[pygame.K_k]:
     game_loop = False
 
-  
-  if velocity_y > 10:
-    velocity_y = 10
+
+  if velocity_y > 25:
+    velocity_y = 25
   if ROTATION_SPEED > 30:
     ROTATION_SPEED = 30
   if slope > 1:
