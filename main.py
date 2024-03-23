@@ -7,13 +7,24 @@ from pygame.locals import QUIT
 import random
 import math
 
+# Game Variables
 WIDTH, HEIGHT = 768, 432
 BACKGROUND = (0, 0, 0)
-ROTATION_SPEED = 1.8
+ROTATION_SPEED = 2
 SPEED = 0
 score = 0
 life = 0
 CDS = False
+crotation = 0
+rotation_angle = 0
+y_pos = 313.8
+x_pos = 90
+cargo_y_pos = y_pos
+cargo_x_pos = x_pos = 200
+color = (255, 255, 255)
+screen_scroll = 0
+bg_scroll = 0
+
 pygame.font.init()
 # pygame.mixer.init()
 # RS = pygame.mixer.Sound("RocketEngine.wav")
@@ -23,70 +34,57 @@ pygame.display.set_caption('HotShot')
 clock = pygame.time.Clock()
 
 bg = pygame.image.load("bg.png")
-cargo = pygame.image.load("Payload.png").convert_alpha()
+# cargo = pygame.image.load("Payload.png").convert_alpha()
 sprite1 = pygame.image.load("Rocket1.png").convert_alpha()
 sprite2 = pygame.image.load("Rocket2.png").convert_alpha()
 sprite3 = pygame.image.load("Rocket3.png").convert_alpha()
 current_sprite = sprite3
 
 # Load Terrain
-T1, T2, T3, T4, T5, T6 = [pygame.image.load(f"T{i}.png").convert_alpha() for i in range(1, 7)]
+terrain = pygame.image.load("terrain.png")
 
-# Terrain 1 Targets
-T1_10 = pygame.image.load("10T1.png").convert_alpha()
-T1_15 = pygame.image.load("15T1.png").convert_alpha()
-T1_20 = pygame.image.load("20T1.png").convert_alpha()
+# Load 10x Targets
+x10 = pygame.image.load("x10.png")
 
-# Terrain 2 Targets
-T2_10 = pygame.image.load("10T2.png").convert_alpha()
-T2_15 = pygame.image.load("15T2.png").convert_alpha()
-T2_20 = pygame.image.load("20T2.png").convert_alpha()
-T2_30 = pygame.image.load("30T2.png").convert_alpha()
+# Load 15x Targets
+x15 = pygame.image.load("x15.png")
 
-# Terrain 3 Targets
-T3_10 = pygame.image.load("10T3.png").convert_alpha()
-T3_15 = pygame.image.load("15T3.png").convert_alpha()
-T3_20 = pygame.image.load("20T3.png").convert_alpha()
-T3_30 = pygame.image.load("30T3.png").convert_alpha()
+# Load 20x Targets
+x20 = pygame.image.load("x20.png")
 
-# Terrain 4 Targets
-T4_10 = pygame.image.load("10T4.png").convert_alpha()
-T4_15 = pygame.image.load("15T4.png").convert_alpha()
+# Load 30x Targets
+x30 = pygame.image.load("x30.png")
 
-# Terrain 5 Targets
-T5_10 = pygame.image.load("10T5.png").convert_alpha()
-T5_15 = pygame.image.load("15T5.png").convert_alpha()
-T5_20 = pygame.image.load("20T5.png").convert_alpha()
+# Load Background Image
+bg = pygame.image.load("bg.png")
 
-# Terrain 6 Targets
-T6_10 = pygame.image.load("10T6.png").convert_alpha()
-T6_15 = pygame.image.load("15T6.png").convert_alpha()
-T6_20 = pygame.image.load("20T6.png").convert_alpha()
-T6_30 = pygame.image.load("30T6.png").convert_alpha()
-
-# camera_offset_x = WIDTH / 2
-# camera_offset_y = HEIGHT / 2
+# Load Cargo
+cargo = pygame.image.load("ball.png").convert_alpha()
 
 sprite_mask = pygame.mask.from_surface(sprite3)
-TM1 = pygame.mask.from_surface(T1)
-TM2 = pygame.mask.from_surface(T2)
-TM3 = pygame.mask.from_surface(T3)
-TM4 = pygame.mask.from_surface(T4)
-TM5 = pygame.mask.from_surface(T5)
-TM6 = pygame.mask.from_surface(T6)
+terrain_mask = pygame.mask.from_surface(terrain)
 cargo_mask = pygame.mask.from_surface(cargo)
+x10_mask = pygame.mask.from_surface(x10)
+x15_mask = pygame.mask.from_surface(x15)
+x20_mask = pygame.mask.from_surface(x20)
+x30_mask = pygame.mask.from_surface(x30)
 
+bg_width = bg.get_width()
+terrain_width = terrain.get_width()
+x10_width = x10.get_width()
+x15_width = x15.get_width()
+x20_width = x20.get_width()
+x30_width = x30.get_width()
 
-crotation = 0
-rotation_angle = 0
-y_pos = 313.8
-x_pos = 90
-color = (255, 255, 255)
+bg_tiles = math.ceil(WIDTH / bg_width) + 2
+terrain_tiles = math.ceil(WIDTH / terrain_width) + 2
+x10_tiles = math.ceil(WIDTH / x10_width) + 2
+x15_tiles = math.ceil(WIDTH / x15_width) + 2
+x20_tiles = math.ceil(WIDTH / x20_width) + 2
+x30_tiles = math.ceil(WIDTH / x30_width) + 2
 
 velocity_x = SPEED * math.cos(math.radians(rotation_angle))
 velocity_y = SPEED * math.sin(math.radians(rotation_angle))
-cvelocity_x = 0
-cvelocity_y = 0
 
 font = pygame.font.SysFont('Corbel', 35)
 
@@ -97,8 +95,8 @@ def find_slope(angle):
 
 
 def cargo_drop():
-  global cvelocity_x, cvelocity_y, crotation, cargo_mask
-  screen.blit(cargo, (x_pos + 200, y_pos))
+  global cvelocity_x, cvelocity_y, cargo_mask
+  screen.blit(cargo, (cargo_x_pos, cargo_y_pos))
   cargo_mask = pygame.mask.from_surface(cargo)
   cvelocity_x = SPEED * math.cos(math.radians(crotation))
   cvelocity_y = SPEED * math.sin(math.radians(crotation))
@@ -109,42 +107,48 @@ def resize_bg_image():
   bg = pygame.transform.scale(bg, (screen.get_width(), screen.get_height()))
 
 
-def resize_T1_image():
-  global T1
-  T1 = pygame.transform.scale(T1, (screen.get_width(), screen.get_height()))
+def resize_terrain_image():
+  global terrain
+  terrain = pygame.transform.scale(terrain, (screen.get_width(), screen.get_height()))
 
+def kill(obj):
+  del obj
 
-mask_image = sprite_mask.to_surface()
+mask_image = cargo_mask.to_surface()
 
 game_loop = True
 while game_loop:
-  clock.tick(18)
+  clock.tick(30)
   screen.fill(BACKGROUND)
-  # camera_x = x_pos - camera_offset_x
-  # camera_y = y_pos - camera_offset_y
-  cargo = pygame.transform.scale(cargo, (80, 80))
-  # player_x = x_pos - camera_x
-  # player_y = y_pos - camera_y
-  #resize_bg_image()
-  # resize_T1_image()
-  #screen.blit(rotated_sprite, (player_x, player_y))
+  cargo = pygame.transform.scale(cargo, (20, 20))
 
-  screen.blit(bg, (0, 0))
-  screen.blit(bg, (WIDTH, 0))
-  screen.blit(T1, (0, 0))
-  screen.blit(T2, (WIDTH, 0))
-  screen.blit(T1_10, (0, 0))
-  screen.blit(T1_15, (0, 0))
-  screen.blit(T1_20, (0, 0))
-  screen.blit(T2_10, (WIDTH, 0))
-  screen.blit(T2_15, (WIDTH, 0))
-  screen.blit(T2_20, (WIDTH, 0))
-  screen.blit(T2_30, (WIDTH, 0))
+  screen_scroll -= velocity_x / 2
+  bg_scroll -= velocity_x / 9
+
+# Blit terrain, bg, and targets
+  for i in range(0, bg_tiles):
+    screen.blit(bg, (i * bg_width + bg_scroll - 4608, 0))
+  for i in range(0, terrain_tiles):
+    screen.blit(terrain, (i * terrain_width + screen_scroll - 4608, 0))
+  for i in range(0, x10_tiles):
+    screen.blit(x10, (i * x10_width + screen_scroll - 4608, 0))  
+  for i in range(0, x15_tiles):
+    screen.blit(x15, (i * x15_width + screen_scroll - 4608, 0))
+  for i in range(0, x20_tiles):
+    screen.blit(x20, (i * x20_width + screen_scroll - 4608, 0))
+  for i in range(0, x30_tiles):
+    screen.blit(x30, (i * x30_width + screen_scroll - 4608, 0))
   # screen.blit(mask_image, (x_pos + 161, y_pos - 59))
   for event in pygame.event.get():
     if event.type == QUIT:
       pygame.quit()
       sys.exit()
+
+  if abs(bg_scroll) > bg_width:
+    bg_scroll = 0
+
+  if abs(screen_scroll) > terrain_width:
+    screen_scroll = 0
 
   text1 = font.render(f'Lat. Speed: {round(velocity_x)}', True, color)
   screen.blit(text1, (550, 10))
@@ -167,19 +171,20 @@ while game_loop:
   keys = pygame.key.get_pressed()
 
   if keys[pygame.K_UP] or keys[pygame.K_w]:
-    # RS.play()
+
     if rotation_angle == 90:
-      velocity_x -= 0.5
+      velocity_x -= 0.5 / 4
       velocity_y += 0
     elif rotation_angle == 270:
-      velocity_x += 0.5
+      velocity_x += 0.5 / 4
       velocity_y += 0
     elif rotation_angle > 90 and rotation_angle < 270:
-      velocity_x += slope
-      velocity_y += 0.5
+      velocity_x += (slope / 2) / 4
+      velocity_y += 0.5 / 4
     else:
-      velocity_x -= slope
-      velocity_y -= 0.5
+      velocity_x -= (slope / 2) / 4
+      velocity_y -= 0.5 / 4
+    # RS.play()
 
 
   if keys[pygame.K_UP] or keys[pygame.K_w ]:
@@ -189,25 +194,29 @@ while game_loop:
 
 
   if keys[pygame.K_SPACE]:
-      CDS = True    
+    CDS = True    
   if CDS == True:
     cargo_drop()
 
 
   if keys[pygame.K_LEFT] or keys[pygame.K_a]:
     rotation_angle += ROTATION_SPEED
-    ROTATION_SPEED += 0.1
+    ROTATION_SPEED += 0.5 / 4
 
   elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
     rotation_angle -= ROTATION_SPEED
-    ROTATION_SPEED += 0.1
+    ROTATION_SPEED += 0.5 / 4
 
   else:
-    ROTATION_SPEED = 1.8
+    ROTATION_SPEED = 2 / 4
 
 
-  if keys[pygame.K_RETURN] or keys[pygame.K_RSHIFT]:
-    velocity_y = -0.225
+  if keys[pygame.K_RETURN]:
+    velocity_y = -0.05625
+    velocity_x = 0
+    rotation_angle = 0
+
+  if keys[pygame.K_RSHIFT]:
     velocity_x = 0
     rotation_angle = 0
 
@@ -219,18 +228,26 @@ while game_loop:
   if keys[pygame.K_ESCAPE] or keys[pygame.K_k]:
     game_loop = False
 
-
-  if velocity_y > 25:
-    velocity_y = 25
-  if ROTATION_SPEED > 30:
-    ROTATION_SPEED = 30
+# set movement boundaries
+  if velocity_y > 30:
+    velocity_y = 30
+  if velocity_x > 30:
+    velocity_x = 30
+  if velocity_x < -30:
+    velocity_x = -30
+  if ROTATION_SPEED > 10:
+    ROTATION_SPEED = 10
   if slope > 1:
     slope = 1
+  if rotation_angle < 1 and rotation_angle > 0:
+    rotation_angle = 0
+  if rotation_angle > 358 and rotation_angle < 0:
+    rotation_angle = 0
 
   rotated_sprite = pygame.transform.rotate(current_sprite, rotation_angle)
   rotated_sprite_rect = rotated_sprite.get_rect(center=(238, 18))
 
-  velocity_y += 0.15
+  velocity_y += 0.15 / 4
   y_pos += velocity_y
   rotated_sprite_rect.x += x_pos
   rotated_sprite_rect.y += y_pos
@@ -238,27 +255,32 @@ while game_loop:
   rotated_sprite_mask = pygame.mask.from_surface(rotated_sprite)
   rotated_sprite_mask = sprite_mask
 
-  if TM1.overlap(sprite_mask, (x_pos + 161, y_pos - 59)):
-    velocity_y = -0.075
+  if terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll + 4608, y_pos - 59)):
+    velocity_y = -0.05625
     velocity_x = 0
     rotation_speed = 0
-    # y_pos = y_pos - 70
-    # rotation_angle = 0
-    # score = score - 10
   else:
-    velocity_y += 0.15
+    velocity_y += 0.15 / 4
 
-  if TM2.overlap(sprite_mask, (x_pos - 607, y_pos - 59)):
-    velocity_y = -0.075
-    velocity_x = 0
-    rotation_speed = 0
-    # if x_pos > 100 or x_pos < 10:
-    #   y_pos = y_pos - 70
-    # # rotation_angle = 0
-    #   score = score - 10
+  if CDS == True:
+    # if cargo_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)):
+    #   velocity_y = -0.1125
+    #   velocity_x = 0
+    #   rotation_speed = 0
+
+    if x10_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll, y_pos)) or x10_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll + 4608, y_pos)):
+      score += 10
+
+    if x15_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll, y_pos)) or x15_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll + 4608, y_pos)):
+      score += 15
+
+    if x20_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll, y_pos)) or x20_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll + 4608, y_pos)):
+      score += 20
+
+    if x30_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll, y_pos)) or x30_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll + 4608, y_pos)):
+      score += 30
 
   y_pos += velocity_y
-  x_pos += velocity_x
 
   screen.blit(rotated_sprite, rotated_sprite_rect)
 
