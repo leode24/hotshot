@@ -19,8 +19,6 @@ crotation = 0
 rotation_angle = 0
 y_pos = 313.8
 x_pos = 90
-cargo_y_pos = y_pos
-cargo_x_pos = x_pos = 200
 color = (255, 255, 255)
 screen_scroll = 0
 bg_scroll = 0
@@ -96,7 +94,7 @@ def find_slope(angle):
 
 def cargo_drop():
   global cvelocity_x, cvelocity_y, cargo_mask
-  screen.blit(cargo, (cargo_x_pos, cargo_y_pos))
+  screen.blit(cargo, (x_pos + 200, y_pos))
   cargo_mask = pygame.mask.from_surface(cargo)
   cvelocity_x = SPEED * math.cos(math.radians(crotation))
   cvelocity_y = SPEED * math.sin(math.radians(crotation))
