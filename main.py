@@ -7,7 +7,7 @@ from pygame.locals import QUIT
 import random
 import math
 
-# Define the Game Variables
+# Define Game Variables
 WIDTH, HEIGHT = 768, 432
 BACKGROUND = (0, 0, 0)
 ROTATION_SPEED = 2
@@ -19,6 +19,9 @@ crotation = 0
 rotation_angle = 0
 y_pos = 313.8
 x_pos = 90
+cargo_y = 0
+cargo_x = 0
+x = 0
 color = (255, 255, 255)
 screen_scroll = 0
 bg_scroll = 0
@@ -91,14 +94,8 @@ def find_slope(angle):
   slope = math.tan(math.radians(angle))
   return slope / 2
 
-
-def cargo_drop():
-  global cvelocity_x, cvelocity_y, cargo_mask
-  screen.blit(cargo, (x_pos + 200, y_pos))
-  cargo_mask = pygame.mask.from_surface(cargo)
-  cvelocity_x = SPEED * math.cos(math.radians(crotation))
-  cvelocity_y = SPEED * math.sin(math.radians(crotation))
-
+cvelocity_x = SPEED * math.cos(math.radians(crotation))
+cvelocity_y = SPEED * math.sin(math.radians(crotation))
 
 def resize_bg_image():
   global bg
@@ -177,10 +174,10 @@ while game_loop:
       velocity_x += 0.5 / 4
       velocity_y += 0
     elif rotation_angle > 90 and rotation_angle < 270:
-      velocity_x += (slope / 2) / 4
+      velocity_x += slope / 4
       velocity_y += 0.5 / 4
     else:
-      velocity_x -= (slope / 2) / 4
+      velocity_x -= slope / 4
       velocity_y -= 0.5 / 4
     # RS.play()
 
@@ -194,7 +191,10 @@ while game_loop:
   if keys[pygame.K_SPACE]:
     CDS = True    
   if CDS == True:
-    cargo_drop()
+    cargo_mask = pygame.mask.from_surface(cargo)
+    screen.blit(cargo, (cargo_x + x_pos + 200, cargo_y + y_pos))
+    cargo_y += x
+    x += 0.5 / 2
 
 
   if keys[pygame.K_LEFT] or keys[pygame.K_a]:
@@ -206,7 +206,7 @@ while game_loop:
     ROTATION_SPEED += 0.5 / 4
 
   else:
-    ROTATION_SPEED = 2 / 4
+    ROTATION_SPEED = 1 / 4
 
 
   if keys[pygame.K_RETURN]:
@@ -260,22 +260,21 @@ while game_loop:
   else:
     velocity_y += 0.15 / 4
 
-  if CDS == True:
-    # if cargo_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)):
-    #   velocity_y = -0.1125
-    #   velocity_x = 0
-    #   rotation_speed = 0
+    if terrain_mask.overlap(cargo_mask,(cargo_x + x_pos + 200 - screen_scroll, cargo_y + y_pos)) or x10_mask.overlap(cargo_mask,(cargo_x + x_pos + 200 - screen_scroll + 4608, cargo_y + y_pos)):
+      CDS = False
 
-    if x10_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll, y_pos)) or x10_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll + 4608, y_pos)):
+  if CDS == True:  
+    if x10_mask.overlap(cargo_mask,(cargo_x + x_pos + 200 - screen_scroll, cargo_y + y_pos)) or x10_mask.overlap(cargo_mask,(cargo_x + x_pos + 200 - screen_scroll + 4608, cargo_y + y_pos)):
       score += 10
 
-    if x15_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll, y_pos)) or x15_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll + 4608, y_pos)):
+
+    if x15_mask.overlap(cargo_mask,(cargo_x + x_pos + 200 - screen_scroll, cargo_y + y_pos)) or x15_mask.overlap(cargo_mask,(cargo_x + x_pos + 200 - screen_scroll + 4608, cargo_y + y_pos)):
       score += 15
 
-    if x20_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll, y_pos)) or x20_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll + 4608, y_pos)):
+    if x20_mask.overlap(cargo_mask,(cargo_x + x_pos + 200 - screen_scroll, cargo_y + y_pos)) or x20_mask.overlap(cargo_mask,(cargo_x + x_pos + 200 - screen_scroll + 4608, cargo_y + y_pos)):
       score += 20
 
-    if x30_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll, y_pos)) or x30_mask.overlap(cargo_mask,(x_pos + 200 - screen_scroll + 4608, y_pos)):
+    if x30_mask.overlap(cargo_mask,(cargo_x + x_pos + 200 - screen_scroll, cargo_y + y_pos)) or x30_mask.overlap(cargo_mask,(cargo_x + x_pos + 200 - screen_scroll + 4608, cargo_y + y_pos)):
       score += 30
 
   y_pos += velocity_y
