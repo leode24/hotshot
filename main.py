@@ -145,11 +145,11 @@ while game_loop:
   if abs(screen_scroll) > terrain_width:
     screen_scroll = 0
 
-  text1 = font.render(f'Lat. Speed: {round(velocity_x)}', True, color)
+  text1 = font.render(f'Lat. Speed: {round(velocity_x * (3 + 1/3))}', True, color)
   screen.blit(text1, (550, 10))
-  text2 = font.render(f'Vert. Speed: {-round(velocity_y)}', True, color)
+  text2 = font.render(f'Vert. Speed: {-round(velocity_y * (3 + 1/3))}', True, color)
   screen.blit(text2, (550, 45))
-  text3 = font.render(f'Altitude: {-round(y_pos - 314)}', True, color)
+  text3 = font.render(f'Altitude: {-round((y_pos - 313) / 2.5)}', True, color)
   screen.blit(text3, (550, 80))
   text4 = font.render(f'Score: {score}', True, color)
   screen.blit(text4, (10, 10))
@@ -233,6 +233,8 @@ while game_loop:
 # set movement boundaries
   if velocity_y > 30:
     velocity_y = 30
+  if velocity_y < -45:
+    velocity_y = -45
   if velocity_x > 30:
     velocity_x = 30
   if velocity_x < -30:
