@@ -196,6 +196,9 @@ while game_loop:
     cargo_y += x
     x += 0.5 / 2
 
+  if keys[pygame.K_p]:
+    CDS = False
+  
   if CDS == False:
     cargo_y = 0
     cargo_x = 0
