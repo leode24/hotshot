@@ -16,11 +16,10 @@ life = 0
 CDS = False
 crotation = 0
 rotation_angle = 0
-y_pos = 313.8
+y_pos = 313
 x_pos = 90
 cargo_y = 0
 cargo_x = 0
-x = 0
 color = (255, 255, 255)
 screen_scroll = 0
 bg_scroll = 0
@@ -83,8 +82,11 @@ x15_tiles = math.ceil(WIDTH / x15_width) + 2
 x20_tiles = math.ceil(WIDTH / x20_width) + 2
 x30_tiles = math.ceil(WIDTH / x30_width) + 2
 
-velocity_x = SPEED * math.cos(math.radians(rotation_angle))
-velocity_y = SPEED * math.sin(math.radians(rotation_angle))
+velocity_x = 0
+velocity_y = 0
+
+cvelocity_x = 0
+cvelocity_y = 0
 
 font = pygame.font.SysFont('Corbel', 35)
 
@@ -92,9 +94,6 @@ font = pygame.font.SysFont('Corbel', 35)
 def find_slope(angle):
   slope = math.tan(math.radians(angle))
   return slope / 2
-
-cvelocity_x = SPEED * math.cos(math.radians(crotation))
-cvelocity_y = SPEED * math.sin(math.radians(crotation))
 
 def resize_bg_image():
   global bg
@@ -179,29 +178,27 @@ while game_loop:
       velocity_x -= slope / 4
       velocity_y -= 0.5 / 4
     # RS.play()
-
-
+      
   if keys[pygame.K_UP] or keys[pygame.K_w ]:
     current_sprite = sprite2 if current_sprite == sprite1 else sprite1
   else:
     current_sprite = sprite3
 
-
   if keys[pygame.K_SPACE]:
     CDS = True    
   if CDS == True:
     cargo_mask = pygame.mask.from_surface(cargo)
-    screen.blit(cargo, (cargo_x + x_pos + 228, cargo_y + y_pos))
-    cargo_y += x
-    x += 0.5 / 2
+    screen.blit(cargo, (cargo_x + 318, cargo_y + y_pos))
+    cvelocity_y += 0.2
 
   if keys[pygame.K_p]:
     CDS = False
   
   if CDS == False:
+    cvelocity_y = 0
+    cvleocity_x = 0
     cargo_y = 0
     cargo_x = 0
-    x = 0
 
   if keys[pygame.K_LEFT] or keys[pygame.K_a]:
     rotation_angle += ROTATION_SPEED
@@ -216,7 +213,7 @@ while game_loop:
 
 
   if keys[pygame.K_RETURN]:
-    velocity_y = -0.05625
+    velocity_y = -0.075
     velocity_x = 0
     rotation_angle = 0
 
@@ -254,7 +251,6 @@ while game_loop:
   rotated_sprite_rect = rotated_sprite.get_rect(center=(238, 18))
 
   velocity_y += 0.15 / 4
-  y_pos += velocity_y
   rotated_sprite_rect.x += x_pos
   rotated_sprite_rect.y += y_pos
 
@@ -262,7 +258,7 @@ while game_loop:
   rotated_sprite_mask = sprite_mask
 
   if terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll + 4608, y_pos - 59)):
-    velocity_y = -0.05625
+    velocity_y = -0.075
     velocity_x = 0
     rotation_speed = 0
   else:
@@ -287,6 +283,9 @@ while game_loop:
       score += 30
 
   y_pos += velocity_y
+
+  cargo_x += cvelocity_x
+  cargo_y += cvelocity_y
 
   screen.blit(rotated_sprite, rotated_sprite_rect)
 
