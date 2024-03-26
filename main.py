@@ -188,7 +188,7 @@ while game_loop:
     CDS = True    
   if CDS == True:
     cargo_mask = pygame.mask.from_surface(cargo)
-    screen.blit(cargo, (cargo_x + 318, cargo_y + y_pos))
+    screen.blit(cargo, (cargo_x + 228, cargo_y))
     cvelocity_y += 0.2
 
   if keys[pygame.K_p]:
@@ -197,8 +197,8 @@ while game_loop:
   if CDS == False:
     cvelocity_y = 0
     cvleocity_x = 0
-    cargo_y = 0
-    cargo_x = 0
+    cargo_y = y_pos
+    cargo_x = x_pos
 
   if keys[pygame.K_LEFT] or keys[pygame.K_a]:
     rotation_angle += ROTATION_SPEED
@@ -266,20 +266,20 @@ while game_loop:
 
   if CDS == True:  
 
-    if terrain_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll, cargo_y + y_pos)) or terrain_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll + 4608, cargo_y + y_pos)):
+    if terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll + 4608, cargo_y + y_pos)):
       CDS = False
 
-    if x10_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll, cargo_y + y_pos)) or x10_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll + 4608, cargo_y + y_pos)):
+    if x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 10
 
 
-    if x15_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll, cargo_y + y_pos)) or x15_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll + 4608, cargo_y + y_pos)):
+    if x15_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x15_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 15
 
-    if x20_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll, cargo_y + y_pos)) or x20_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll + 4608, cargo_y + y_pos)):
+    if x20_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x20_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 20
 
-    if x30_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll, cargo_y + y_pos)) or x30_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll + 4608, cargo_y + y_pos)):
+    if x30_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x30_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 30
 
   y_pos += velocity_y
