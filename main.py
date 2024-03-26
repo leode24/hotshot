@@ -62,7 +62,6 @@ cargo = pygame.image.load("ball.png").convert_alpha()
 
 sprite_mask = pygame.mask.from_surface(sprite3)
 terrain_mask = pygame.mask.from_surface(terrain)
-cargo_mask = pygame.mask.from_surface(cargo)
 x10_mask = pygame.mask.from_surface(x10)
 x15_mask = pygame.mask.from_surface(x15)
 x20_mask = pygame.mask.from_surface(x20)
@@ -107,7 +106,7 @@ def resize_terrain_image():
 def kill(obj):
   del obj
 
-mask_image = cargo_mask.to_surface()
+# mask_image = cargo_mask.to_surface()
 
 game_loop = True
 while game_loop:
@@ -186,6 +185,7 @@ while game_loop:
 
   if keys[pygame.K_SPACE]:
     CDS = True    
+  
   if CDS == True:
     cargo_mask = pygame.mask.from_surface(cargo)
     screen.blit(cargo, (cargo_x + 228, cargo_y))
