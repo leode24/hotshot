@@ -6,6 +6,8 @@ from pygame.locals import QUIT
 import random
 import math
 
+# Hello!
+
 # Define Game Variables
 WIDTH, HEIGHT = 768, 432
 BACKGROUND = (0, 0, 0)
