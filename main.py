@@ -31,7 +31,7 @@ pygame.display.set_caption('HotShot')
 clock = pygame.time.Clock()
 
 bg = pygame.image.load("bg.png")
-# cargo = pygame.image.load("Payload.png").convert_alpha()
+
 sprite1 = pygame.image.load("Rocket1.png").convert_alpha()
 sprite2 = pygame.image.load("Rocket2.png").convert_alpha()
 sprite3 = pygame.image.load("Rocket3.png").convert_alpha()
@@ -85,7 +85,7 @@ velocity_y = 0
 cvelocity_x = 0
 cvelocity_y = 0
 
-font = pygame.font.SysFont('Corbel', 35)
+font = pygame.font.SysFont('corbel', 35)
 
 def find_slope(angle):
   slope = math.tan(math.radians(angle))
@@ -209,6 +209,7 @@ while game_loop:
   else:
     ROTATION_SPEED = 1 / 4
 
+
   if keys[pygame.K_RETURN]:
     velocity_y = -0.075
     velocity_x = 0
@@ -221,6 +222,7 @@ while game_loop:
   if keys[pygame.K_m]:
     rotation_angle = 180
     velocity_x = 0
+
 
   if keys[pygame.K_ESCAPE] or keys[pygame.K_k]:
     game_loop = False
