@@ -196,7 +196,7 @@ while game_loop:
   
   if CDS == False:
     cvelocity_y = 0
-    cvleocity_x = 0
+    cvelocity_x = 0
     cargo_y = y_pos
     cargo_x = x_pos
 
