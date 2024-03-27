@@ -187,16 +187,19 @@ while game_loop:
     CDS = True    
   
   if CDS == True:
+    x = cvelocity_x - velocity_x
     cargo_mask = pygame.mask.from_surface(cargo)
     screen.blit(cargo, (cargo_x + 228, cargo_y))
     cvelocity_y += 0.2
+    cargo_x += x / 4
+    print(cargo_x)
 
   if keys[pygame.K_p]:
     CDS = False
   
   if CDS == False:
     cvelocity_y = 0
-    cvelocity_x = 0
+    cvelocity_x = velocity_x
     cargo_y = y_pos
     cargo_x = x_pos
 
@@ -284,7 +287,6 @@ while game_loop:
 
   y_pos += velocity_y
 
-  cargo_x += cvelocity_x
   cargo_y += cvelocity_y
 
   screen.blit(rotated_sprite, rotated_sprite_rect)
