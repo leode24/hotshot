@@ -194,7 +194,6 @@ while game_loop:
     screen.blit(cargo, (cargo_x + 228, cargo_y))
     cvelocity_y += 0.2
     cargo_x += x / 4
-    print(cargo_x)
 
   if keys[pygame.K_p]:
     CDS = False
