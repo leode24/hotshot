@@ -187,7 +187,7 @@ while game_loop:
     cargo_mask = pygame.mask.from_surface(cargo)
     screen.blit(cargo, (cargo_x + 228, cargo_y))
     cvelocity_y += 0.2
-    cargo_x += x / 4
+    cargo_x += x / 2
 
   if keys[pygame.K_p]:
     CDS = False
@@ -209,7 +209,6 @@ while game_loop:
   else:
     ROTATION_SPEED = 1 / 4
 
-
   if keys[pygame.K_RETURN]:
     velocity_y = -0.075
     velocity_x = 0
@@ -222,7 +221,6 @@ while game_loop:
   if keys[pygame.K_m]:
     rotation_angle = 180
     velocity_x = 0
-
 
   if keys[pygame.K_ESCAPE] or keys[pygame.K_k]:
     game_loop = False
