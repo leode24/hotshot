@@ -3,7 +3,6 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import sys
 import pygame
 from pygame.locals import QUIT
-import random
 import math
 
 # Define Game Variables
@@ -88,7 +87,6 @@ cvelocity_y = 0
 
 font = pygame.font.SysFont('Corbel', 35)
 
-
 def find_slope(angle):
   slope = math.tan(math.radians(angle))
   return slope / 2
@@ -96,7 +94,6 @@ def find_slope(angle):
 def resize_bg_image():
   global bg
   bg = pygame.transform.scale(bg, (screen.get_width(), screen.get_height()))
-
 
 def resize_terrain_image():
   global terrain
@@ -212,7 +209,6 @@ while game_loop:
   else:
     ROTATION_SPEED = 1 / 4
 
-
   if keys[pygame.K_RETURN]:
     velocity_y = -0.075
     velocity_x = 0
@@ -225,7 +221,6 @@ while game_loop:
   if keys[pygame.K_m]:
     rotation_angle = 180
     velocity_x = 0
-
 
   if keys[pygame.K_ESCAPE] or keys[pygame.K_k]:
     game_loop = False
