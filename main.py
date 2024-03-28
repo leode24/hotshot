@@ -187,7 +187,7 @@ while game_loop:
     cargo_mask = pygame.mask.from_surface(cargo)
     screen.blit(cargo, (cargo_x + 228, cargo_y))
     cvelocity_y += 0.3
-    cargo_x += x
+    cargo_x += x / 2
 
   if keys[pygame.K_p]:
     CDS = False
