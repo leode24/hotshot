@@ -11,7 +11,7 @@ BACKGROUND = (0, 0, 0)
 ROTATION_SPEED = 2
 SPEED = 0
 score = 0
-life = 0
+life = 5
 CDS = False
 rotation_angle = 0
 y_pos = 313
@@ -146,6 +146,8 @@ while game_loop:
   screen.blit(text3, (550, 80))
   text4 = font.render(f'Score: {score}', True, color)
   screen.blit(text4, (10, 10))
+  text5 = font.render(f'Lives: {life}', True, color)
+  screen.blit(text5, (10, 45))
 
   slope = find_slope(rotation_angle)
 
@@ -242,6 +244,8 @@ while game_loop:
     rotation_angle = 0
   if rotation_angle > 358 and rotation_angle < 0:
     rotation_angle = 0
+  if life <= 0:
+    game_loop = False
 
   rotated_sprite = pygame.transform.rotate(current_sprite, rotation_angle)
   rotated_sprite_rect = rotated_sprite.get_rect(center=(238, 18))
@@ -259,6 +263,15 @@ while game_loop:
     rotation_speed = 0
   else:
     velocity_y += 0.15 / 4
+
+  if (screen_scroll <= -37 or screen_scroll >= 1) and terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll + 4608, y_pos - 59)):
+    velocity_y = -0.07
+    velocity_x = 0
+    rotation_speed = 0
+    rotation_angle = 0
+    screen_scroll = 0
+    y_pos = 313
+    life -= 1
 
   if CDS == True:  
 
