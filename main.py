@@ -174,20 +174,20 @@ while game_loop:
       velocity_y -= 0.5 / 4
     # RS.play()
       
-  if keys[pygame.K_UP] or keys[pygame.K_w ]:
+  if keys[pygame.K_UP] or keys[pygame.K_w]:
     current_sprite = sprite2 if current_sprite == sprite1 else sprite1
   else:
     current_sprite = sprite3
 
-  if keys[pygame.K_SPACE]:
+  if keys[pygame.K_SPACE] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
     CDS = True    
   
   if CDS == True:
     x = cvelocity_x - velocity_x
     cargo_mask = pygame.mask.from_surface(cargo)
     screen.blit(cargo, (cargo_x + 228, cargo_y))
-    cvelocity_y += 0.2
-    cargo_x += x / 2
+    cvelocity_y += 0.3
+    cargo_x += x
 
   if keys[pygame.K_p]:
     CDS = False
