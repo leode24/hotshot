@@ -272,6 +272,7 @@ while game_loop:
     screen_scroll = 0
     y_pos = 313
     life -= 1
+    score = 0
 
   if CDS == True:  
 
