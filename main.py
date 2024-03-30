@@ -21,6 +21,8 @@ cargo_x = 0
 color = (255, 255, 255)
 screen_scroll = 0
 bg_scroll = 0
+rocket_blit = True
+g_o = False
 
 pygame.font.init()
 # pygame.mixer.init()
@@ -29,6 +31,9 @@ pygame.font.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption('HotShot')
 clock = pygame.time.Clock()
+
+game_over = pygame.image.load("game_over.png").convert_alpha()
+restart = pygame.image.load("restart.png").convert_alpha()
 
 bg = pygame.image.load("bg.png")
 
@@ -109,6 +114,8 @@ while game_loop:
   clock.tick(30)
   screen.fill(BACKGROUND)
   cargo = pygame.transform.scale(cargo, (20, 20))
+  game_over = pygame.transform.scale(game_over, (768, 432))
+  restart = pygame.transform.scale(restart, (768, 241))
 
   screen_scroll -= velocity_x / 2
   bg_scroll -= velocity_x / 9
@@ -245,7 +252,23 @@ while game_loop:
   if rotation_angle > 358 and rotation_angle < 0:
     rotation_angle = 0
   if life <= 0:
-    game_loop = False
+    g_o = True
+
+  if g_o == True:  
+    screen.blit(game_over, (0, -45))
+    screen.blit(restart, (0, 241))
+    rocket_blit = False
+    velocity_y = -0.07
+    velocity_x = 0
+    rotation_speed = 0
+    rotation_angle = 0
+    screen_scroll = 0
+    y_pos = 313
+    life = 5
+    score = 0
+    if keys[pygame.K_RETURN]:
+      g_o = False
+      rocket_blit = True
 
   rotated_sprite = pygame.transform.rotate(current_sprite, rotation_angle)
   rotated_sprite_rect = rotated_sprite.get_rect(center=(238, 18))
@@ -300,6 +323,7 @@ while game_loop:
 
   cargo_y += cvelocity_y
 
-  screen.blit(rotated_sprite, rotated_sprite_rect)
+  if rocket_blit == True:
+    screen.blit(rotated_sprite, rotated_sprite_rect)
 
   pygame.display.update()
