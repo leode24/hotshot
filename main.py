@@ -276,21 +276,25 @@ while game_loop:
 
   if CDS == True:  
 
-    if terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + x_pos + 228 - screen_scroll + 4608, cargo_y + y_pos)):
+    if terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       CDS = False
 
     if x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 10
+      CDS = False
 
 
     if x15_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x15_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 15
+      CDS = False
 
     if x20_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x20_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 20
+      CDS = False
 
     if x30_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x30_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 30
+      CDS = False
 
   y_pos += velocity_y
 
