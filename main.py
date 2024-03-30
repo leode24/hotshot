@@ -11,7 +11,7 @@ BACKGROUND = (0, 0, 0)
 ROTATION_SPEED = 2
 SPEED = 0
 score = 0
-life = 5
+life = 1
 CDS = False
 rotation_angle = 0
 y_pos = 313
@@ -104,6 +104,12 @@ def resize_terrain_image():
   global terrain
   terrain = pygame.transform.scale(terrain, (screen.get_width(), screen.get_height()))
 
+def resize_gameover_restart():
+  global game_over, restart
+  game_over = pygame.transform.scale(game_over, (screen.get_width(), screen.get_height()))
+  restart = pygame.transform.scale(restart, (screen.get_width(), screen.get_height()))
+
+
 def kill(obj):
   del obj
 
@@ -139,6 +145,8 @@ while game_loop:
       pygame.quit()
       sys.exit()
 
+  resize_gameover_restart()
+  
   if abs(bg_scroll) > bg_width:
     bg_scroll = 0
 
