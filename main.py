@@ -281,7 +281,7 @@ while game_loop:
   else:
     velocity_y += 0.15 / 4
 
-  if ((screen_scroll > 2 or screen_scroll < -4463) and (screen_scroll <= 145 or screen_scroll >= -4462) and y_pos > 232) or ((screen_scroll <= -37 or screen_scroll >= 1) and terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll + 4608, y_pos - 59))):
+  if (screen_scroll < -4463 and (screen_scroll <= 145 or screen_scroll >= -4462) and y_pos > 232) or ((screen_scroll <= -37 or screen_scroll >= 1) and terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll + 4608, y_pos - 59))):
     velocity_y = -0.07
     velocity_x = 0
     rotation_speed = 0
@@ -296,7 +296,7 @@ while game_loop:
       
   if CDS == True:  
 
-    if ((screen_scroll < -4463) and (screen_scroll <= 145 or screen_scroll >= -4462) and cargo_y > 232) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
+    if (screen_scroll < -4463 and (screen_scroll <= 145 or screen_scroll >= -4462) and cargo_y > 232) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       CDS = False
 
     if x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
