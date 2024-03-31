@@ -12,7 +12,7 @@ ROTATION_SPEED = 2
 SPEED = 0
 score = 0
 life = 3
-fuel = 1000
+fuel = 1500
 full = True
 CDS = False
 rotation_angle = 0
@@ -318,23 +318,23 @@ while game_loop:
 
     if x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 10
-      fuel += 50
+      fuel += 75
       CDS = False
 
 
     if x15_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x15_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 15
-      fuel += 75
+      fuel += 100
       CDS = False
 
     if x20_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x20_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 20
-      fuel += 125
+      fuel += 150
       CDS = False
 
     if x30_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x30_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 30
-      fuel += 175
+      fuel += 200
       CDS = False
 
   y_pos += velocity_y
