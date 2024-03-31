@@ -270,12 +270,13 @@ while game_loop:
     rotation_angle = 0
     screen_scroll = 0
     y_pos = 313
-    life = 5
+    life = 3
     score = 0
     if keys[pygame.K_RETURN]:
       g_o = False
       full = True
-      fuel = 1000
+      fuel = 1500
+      CDS = False
       rocket_blit = True
 
   rotated_sprite = pygame.transform.rotate(current_sprite, rotation_angle)
