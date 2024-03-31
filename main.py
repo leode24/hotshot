@@ -296,7 +296,7 @@ while game_loop:
       
   if CDS == True:  
 
-    if ((screen_scroll > 2 or screen_scroll < -4463) and (screen_scroll <= 145 or screen_scroll >= -4462) and cargo_y > 232) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
+    if ((screen_scroll < -4463) and (screen_scroll <= 145 or screen_scroll >= -4462) and cargo_y > 232) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       CDS = False
 
     if x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
