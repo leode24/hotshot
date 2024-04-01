@@ -12,8 +12,6 @@ ROTATION_SPEED = 2
 SPEED = 0
 score = 0
 life = 3
-fuel = 1500
-full = True
 CDS = False
 rotation_angle = 0
 y_pos = 313
@@ -157,8 +155,6 @@ while game_loop:
   screen.blit(text4, (10, 10))
   text5 = font.render(f'Lives: {life}', True, color)
   screen.blit(text5, (10, 45))
-  text6 = font.render(f'Fuel: {fuel}', True, color)
-  screen.blit(text6, (10, 80))
 
   slope = find_slope(rotation_angle)
 
@@ -171,29 +167,26 @@ while game_loop:
 
   keys = pygame.key.get_pressed()
 
-  if full == True:
-    if keys[pygame.K_UP] or keys[pygame.K_w]:
+  if keys[pygame.K_UP] or keys[pygame.K_w]:
 
-      if rotation_angle == 90:
-        velocity_x -= 0.5 / 4
-        velocity_y += 0
-      elif rotation_angle == 270:
-        velocity_x += 0.5 / 4
-        velocity_y += 0
-      elif rotation_angle > 90 and rotation_angle < 270:
-        velocity_x += slope / 4
-        velocity_y += 0.5 / 4
-      else:
-        velocity_x -= slope / 4
-        velocity_y -= 0.5 / 4
+    if rotation_angle == 90:
+      velocity_x -= 0.5 / 4
+      velocity_y += 0
+    elif rotation_angle == 270:
+      velocity_x += 0.5 / 4
+      velocity_y += 0
+    elif rotation_angle > 90 and rotation_angle < 270:
+      velocity_x += slope / 4
+      velocity_y += 0.5 / 4
+    else:
+      velocity_x -= slope / 4
+      velocity_y -= 0.5 / 4
       # RS.play()
       
-  if full == True:
-    if keys[pygame.K_UP] or keys[pygame.K_w]:
-      fuel -= 1
-      current_sprite = sprite2 if current_sprite == sprite1 else sprite1
-    else:
-      current_sprite = sprite3
+  if keys[pygame.K_UP] or keys[pygame.K_w]:
+    current_sprite = sprite2 if current_sprite == sprite1 else sprite1
+  else:
+    current_sprite = sprite3
 
   if keys[pygame.K_SPACE] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
     CDS = True    
@@ -254,11 +247,6 @@ while game_loop:
     rotation_angle = 0
   if life <= 0:
     g_o = True
-  if fuel <= 0:
-    fuel = 0
-    full = False
-  if full == False:
-    current_sprite = sprite3
 
   if g_o == True:  
     screen.blit(game_over, (0, -45))
@@ -274,8 +262,6 @@ while game_loop:
     score = 0
     if keys[pygame.K_RETURN]:
       g_o = False
-      full = True
-      fuel = 1500
       CDS = False
       rocket_blit = True
 
@@ -288,9 +274,6 @@ while game_loop:
 
   rotated_sprite_mask = pygame.mask.from_surface(rotated_sprite)
   rotated_sprite_mask = sprite_mask
-
-  if terrain_mask.overlap(sprite_mask, ((x_pos + 161 - screen_scroll, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll + 4608, y_pos - 59))) and full == False:
-    g_o = True
 
   if terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll + 4608, y_pos - 59)):
     velocity_y = -0.075
@@ -319,23 +302,19 @@ while game_loop:
 
     if x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 10
-      fuel += 75
       CDS = False
 
 
     if x15_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x15_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 15
-      fuel += 100
       CDS = False
 
     if x20_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x20_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 20
-      fuel += 150
       CDS = False
 
     if x30_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x30_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
       score += 30
-      fuel += 200
       CDS = False
 
   y_pos += velocity_y
