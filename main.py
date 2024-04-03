@@ -23,6 +23,7 @@ screen_scroll = 0
 bg_scroll = 0
 rocket_blit = True
 g_o = False
+play = False
 
 pygame.font.init()
 pygame.mixer.init()
@@ -168,8 +169,8 @@ while game_loop:
   keys = pygame.key.get_pressed()
 
   if keys[pygame.K_UP] or keys[pygame.K_w]:
-
-    RS.play()
+    
+    play = True
     if rotation_angle == 90:
       velocity_x -= 0.5 / 4
       velocity_y += 0
@@ -182,6 +183,10 @@ while game_loop:
     else:
       velocity_x -= slope / 4
       velocity_y -= 0.5 / 4
+      play = False
+
+  if play = True:
+    RS.play()
 
   if keys[pygame.K_UP] or keys[pygame.K_w]:
     current_sprite = sprite2 if current_sprite == sprite1 else sprite1
