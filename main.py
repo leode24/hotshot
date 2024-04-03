@@ -182,8 +182,9 @@ while game_loop:
       velocity_x -= slope / 4
       velocity_y -= 0.5 / 4
 
-  if play == True:
-    RS.play()
+  if g_o == False:
+    if play == True:
+      RS.play()
 
   if play == False:
     RS.stop()
@@ -304,7 +305,7 @@ while game_loop:
       
   if CDS == True:  
 
-    if (screen_scroll < -4463 and (screen_scroll <= 145 or screen_scroll >= -4462) and cargo_y > 232) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
+    if terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll - 4608, cargo_y)):
       CDS = False
 
     if x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)):
