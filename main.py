@@ -185,7 +185,7 @@ while game_loop:
       velocity_y -= 0.5 / 4
       play = False
 
-  if play = True:
+  if play == True:
     RS.play()
 
   if keys[pygame.K_UP] or keys[pygame.K_w]:
