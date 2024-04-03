@@ -182,11 +182,10 @@ while game_loop:
       velocity_x -= slope / 4
       velocity_y -= 0.5 / 4
 
-  if g_o == False:
-    if play == True:
-      RS.play()
+  if play == True:
+    RS.play()
 
-  if play == False:
+  if play == False or g_o == True:
     RS.stop()
 
   if keys[pygame.K_UP] or keys[pygame.K_w]:
