@@ -4,7 +4,6 @@ import sys
 import pygame
 from pygame.locals import QUIT
 import math
-import pygame_menu
 
 # Define Game Variables
 WIDTH, HEIGHT = 768, 432
