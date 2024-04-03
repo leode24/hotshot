@@ -27,7 +27,7 @@ play = False
 
 pygame.font.init()
 pygame.mixer.init()
-RS = pygame.mixer.Sound("RocketEngine.wav")
+RS = pygame.mixer.Sound("rocket.mp3")
 # BGmusic = pygame.mixer.Sound("BGmusic.mp3")
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption('HotShot')
@@ -169,7 +169,6 @@ while game_loop:
   keys = pygame.key.get_pressed()
 
   if keys[pygame.K_UP] or keys[pygame.K_w]:
-    play = True
     if rotation_angle == 90:
       velocity_x -= 0.5 / 4
       velocity_y += 0
@@ -182,16 +181,19 @@ while game_loop:
     else:
       velocity_x -= slope / 4
       velocity_y -= 0.5 / 4
-  else:
-    play = False
 
   if play == True:
     RS.play()
 
+  if play == False:
+    RS.stop()
+
   if keys[pygame.K_UP] or keys[pygame.K_w]:
+    play = True
     current_sprite = sprite2 if current_sprite == sprite1 else sprite1
   else:
     current_sprite = sprite3
+    play = False
 
   if keys[pygame.K_SPACE] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
     CDS = True    
