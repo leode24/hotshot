@@ -169,6 +169,7 @@ while game_loop:
 
   if keys[pygame.K_UP] or keys[pygame.K_w]:
 
+    RS.play()
     if rotation_angle == 90:
       velocity_x -= 0.5 / 4
       velocity_y += 0
@@ -181,8 +182,7 @@ while game_loop:
     else:
       velocity_x -= slope / 4
       velocity_y -= 0.5 / 4
-      RS.play()
-      
+
   if keys[pygame.K_UP] or keys[pygame.K_w]:
     current_sprite = sprite2 if current_sprite == sprite1 else sprite1
   else:
