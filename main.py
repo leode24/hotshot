@@ -169,7 +169,6 @@ while game_loop:
   keys = pygame.key.get_pressed()
 
   if keys[pygame.K_UP] or keys[pygame.K_w]:
-    
     play = True
     if rotation_angle == 90:
       velocity_x -= 0.5 / 4
@@ -183,7 +182,8 @@ while game_loop:
     else:
       velocity_x -= slope / 4
       velocity_y -= 0.5 / 4
-      play = False
+  else:
+    play = False
 
   if play == True:
     RS.play()
