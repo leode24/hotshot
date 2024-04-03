@@ -25,8 +25,8 @@ rocket_blit = True
 g_o = False
 
 pygame.font.init()
-# pygame.mixer.init()
-# RS = pygame.mixer.Sound("RocketEngine.wav")
+pygame.mixer.init()
+RS = pygame.mixer.Sound("RocketEngine.wav")
 # BGmusic = pygame.mixer.Sound("BGmusic.mp3")
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption('HotShot')
@@ -181,7 +181,7 @@ while game_loop:
     else:
       velocity_x -= slope / 4
       velocity_y -= 0.5 / 4
-      # RS.play()
+      RS.play()
       
   if keys[pygame.K_UP] or keys[pygame.K_w]:
     current_sprite = sprite2 if current_sprite == sprite1 else sprite1
