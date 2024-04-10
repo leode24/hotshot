@@ -256,14 +256,14 @@ while game_loop:
   rotated_sprite_mask = pygame.mask.from_surface(rotated_sprite)
   rotated_sprite_mask = sprite_mask
 
-  if terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll + 4608, y_pos - 59)):
+  if terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll + 4608, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll - 4608, y_pos - 59)):
     velocity_y = -0.075
     velocity_x = 0
     rotation_speed = 0
   else:
     velocity_y += 0.15 / 4
 
-  if (screen_scroll < -4463 and (screen_scroll <= 145 or screen_scroll >= -4462) and y_pos > 232) or ((screen_scroll <= -37 or screen_scroll >= 1) and terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll + 4608, y_pos - 59))):
+  if (screen_scroll < -4463 and (screen_scroll <= 145 or screen_scroll >= -4462) and y_pos > 232) or ((screen_scroll <= -37 or screen_scroll >= 1) and terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll, y_pos - 59)) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll + 4608, y_pos - 59))) or terrain_mask.overlap(sprite_mask, (x_pos + 161 - screen_scroll - 4608, y_pos - 59)):
     velocity_y = -0.07
     velocity_x = 0
     rotation_speed = 0
