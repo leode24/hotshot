@@ -246,23 +246,6 @@ while game_loop:
   if life <= 0:
     g_o = True
 
-  if g_o == True:  
-    screen.blit(game_over, (0, -45))
-    screen.blit(restart, (0, 241))
-    rocket_blit = False
-    velocity_y = -0.07
-    velocity_x = 0
-    rotation_speed = 0
-    rotation_angle = 0
-    screen_scroll = 0
-    y_pos = 313
-    life = 3
-    score = 0
-    if keys[pygame.K_RETURN]:
-      g_o = False
-      CDS = False
-      rocket_blit = True
-
   rotated_sprite = pygame.transform.rotate(current_sprite, rotation_angle)
   rotated_sprite_rect = rotated_sprite.get_rect(center=(238, 18))
 
@@ -325,6 +308,24 @@ while game_loop:
     screen.blit(cargo, (cargo_x + 228, cargo_y))
     cvelocity_y += 0.3
     cargo_x += x / 2  
+
+  if g_o == True:  
+    screen.blit(game_over, (0, -45))
+    screen.blit(restart, (0, 241))
+    rocket_blit = False
+    velocity_y = -0.07
+    velocity_x = 0
+    rotation_speed = 0
+    rotation_angle = 0
+    screen_scroll = 0
+    y_pos = 313
+    life = 3
+    score = 0
+    CDS = False
+    if keys[pygame.K_RETURN]:
+      g_o = False
+      CDS = False
+      rocket_blit = True
 
 
   y_pos += velocity_y
