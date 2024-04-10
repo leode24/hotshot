@@ -326,7 +326,6 @@ while game_loop:
     cvelocity_y += 0.3
     cargo_x += x / 2  
 
-
   y_pos += velocity_y
 
   cargo_y += cvelocity_y
