@@ -195,8 +195,6 @@ while game_loop:
     current_sprite = sprite3
     play = False
 
-  if keys[pygame.K_SPACE] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
-    CDS = True    
   
   if keys[pygame.K_p]:
     CDS = False
@@ -294,19 +292,16 @@ while game_loop:
       score = 0
     else:
       score -= 15
-      
-  cargo_mask = pygame.mask.from_surface(cargo)
 
+  if keys[pygame.K_SPACE] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
+    CDS = True  
+
+  cargo_mask = pygame.mask.from_surface(cargo)
+  
   if CDS == True:  
 
     if terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll - 4608, cargo_y)):
-      CDS = False
-
-  if CDS == True:
-    x = cvelocity_x - velocity_x
-    screen.blit(cargo, (cargo_x + 228, cargo_y))
-    cvelocity_y += 0.3
-    cargo_x += x / 2      
+      CDS = False    
 
     if x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)) or x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll - 4608, cargo_y)):
       score += 10
@@ -324,6 +319,13 @@ while game_loop:
     if x30_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x30_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)) or x30_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll - 4608, cargo_y)):
       score += 30
       CDS = False
+
+  if CDS == True:
+    x = cvelocity_x - velocity_x
+    screen.blit(cargo, (cargo_x + 228, cargo_y))
+    cvelocity_y += 0.3
+    cargo_x += x / 2  
+
 
   y_pos += velocity_y
 
