@@ -183,7 +183,7 @@ while game_loop:
       velocity_y -= 0.5 / 4
 
   if play == True:
-    RS.play()
+    RS.stop()
 
   if play == False or g_o == True:
     RS.stop()
@@ -198,12 +198,12 @@ while game_loop:
   if keys[pygame.K_SPACE] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
     CDS = True    
   
-  if CDS == True:
-    x = cvelocity_x - velocity_x
-    cargo_mask = pygame.mask.from_surface(cargo)
-    screen.blit(cargo, (cargo_x + 228, cargo_y))
-    cvelocity_y += 0.3
-    cargo_x += x / 2
+  # if CDS == True:
+  #   x = cvelocity_x - velocity_x
+  #   cargo_mask = pygame.mask.from_surface(cargo)
+  #   screen.blit(cargo, (cargo_x + 228, cargo_y))
+  #   cvelocity_y += 0.3
+  #   cargo_x += x / 2
 
   if keys[pygame.K_p]:
     CDS = False
@@ -302,10 +302,18 @@ while game_loop:
     else:
       score -= 15
       
+  cargo_mask = pygame.mask.from_surface(cargo)
+
   if CDS == True:  
 
     if terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)) or terrain_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll - 4608, cargo_y)):
       CDS = False
+
+  if CDS == True:
+    x = cvelocity_x - velocity_x
+    screen.blit(cargo, (cargo_x + 228, cargo_y))
+    cvelocity_y += 0.3
+    cargo_x += x / 2      
 
     if x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll, cargo_y)) or x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll + 4608, cargo_y)) or x10_mask.overlap(cargo_mask,(cargo_x + 228 - screen_scroll - 4608, cargo_y)):
       score += 10
