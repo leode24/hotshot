@@ -24,7 +24,7 @@ bg_scroll = 0
 rocket_blit = True
 g_o = False
 
-# pygame.font.init()
+pygame.font.init()
 # pygame.mixer.init()
 # RS = pygame.mixer.Sound("rocket.mp3")
 # BGmusic = pygame.mixer.Sound("BGmusic.mp3")
