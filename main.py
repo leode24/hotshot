@@ -23,11 +23,10 @@ screen_scroll = 0
 bg_scroll = 0
 rocket_blit = True
 g_o = False
-play = False
 
-pygame.font.init()
-pygame.mixer.init()
-RS = pygame.mixer.Sound("rocket.mp3")
+# pygame.font.init()
+# pygame.mixer.init()
+# RS = pygame.mixer.Sound("rocket.mp3")
 # BGmusic = pygame.mixer.Sound("BGmusic.mp3")
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption('HotShot')
@@ -108,8 +107,6 @@ def resize_terrain_image():
 def kill(obj):
   del obj
 
-# mask_image = cargo_mask.to_surface()
-
 game_loop = True
 while game_loop:
   clock.tick(30)
@@ -182,18 +179,10 @@ while game_loop:
       velocity_x -= slope / 4
       velocity_y -= 0.5 / 4
 
-  if play == True:
-    RS.play()
-
-  if play == False or g_o == True:
-    RS.stop()
-
   if keys[pygame.K_UP] or keys[pygame.K_w]:
-    play = True
     current_sprite = sprite2 if current_sprite == sprite1 else sprite1
   else:
     current_sprite = sprite3
-    play = False
 
   
   if keys[pygame.K_p]:
