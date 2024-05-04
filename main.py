@@ -134,7 +134,7 @@ while game_loop:
     screen.blit(x20, (i * x20_width + screen_scroll - 4608, 0))
   for i in range(0, x30_tiles):
     screen.blit(x30, (i * x30_width + screen_scroll - 4608, 0))
-  # screen.blit(mask_image, (x_pos + 161, y_pos - 59))
+  
   for event in pygame.event.get():
     if event.type == QUIT:
       pygame.quit()
@@ -183,7 +183,7 @@ while game_loop:
       velocity_y -= 0.5 / 4
 
   if play == True:
-    RS.stop()
+    RS.play()
 
   if play == False or g_o == True:
     RS.stop()
